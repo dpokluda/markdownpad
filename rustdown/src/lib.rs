@@ -3,11 +3,22 @@ use comrak::{markdown_to_html, Options};
 
 #[wasm_bindgen]
 pub fn parse_markdown(input: &str) -> String {
+    parse_markdown_with_options(input, true, true, true, true)
+}
+
+#[wasm_bindgen]
+pub fn parse_markdown_with_options(
+    input: &str,
+    table: bool,
+    tasklist: bool,
+    strikethrough: bool,
+    autolink: bool,
+) -> String {
     let mut options = Options::default();
-    options.extension.strikethrough = true;
-    options.extension.table = true;
-    options.extension.autolink = true;
-    options.extension.tasklist = true;
+    options.extension.table = table;
+    options.extension.tasklist = tasklist;
+    options.extension.strikethrough = strikethrough;
+    options.extension.autolink = autolink;
     markdown_to_html(input, &options)
 }
 

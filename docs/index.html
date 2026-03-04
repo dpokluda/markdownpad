@@ -10,7 +10,57 @@
     <header>
         <h1>🦀 MarkdownPad</h1>
         <span class="subtitle">Markdown → HTML, powered by Rust + WebAssembly</span>
+        <button id="theme-toggle" title="Toggle theme">🌙</button>
     </header>
+    <div class="toolbar">
+        <div class="toolbar-group">
+            <div class="dropdown">
+                <button class="toolbar-btn" id="samples-btn" title="Open sample">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M1.75 1A1.75 1.75 0 0 0 0 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0 0 16 13.25v-8.5A1.75 1.75 0 0 0 14.25 3H7.5a.25.25 0 0 1-.2-.1l-.9-1.2C6.07 1.26 5.55 1 5 1H1.75Z"/></svg>
+                    Samples
+                    <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="m4.427 7.427 3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.396 7H4.604a.25.25 0 0 0-.177.427Z"/></svg>
+                </button>
+                <div class="dropdown-menu" id="samples-menu">
+                    <button class="dropdown-item" data-sample="welcome">📄 Welcome</button>
+                    <button class="dropdown-item" data-sample="tables">📊 Tables</button>
+                    <button class="dropdown-item" data-sample="empty">📝 Empty</button>
+                </div>
+            </div>
+            <button class="toolbar-btn" id="clear-btn" title="Clear editor">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M11 1.75V3h2.25a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1 0-1.5H5V1.75C5 .784 5.784 0 6.75 0h2.5C10.216 0 11 .784 11 1.75ZM4.496 6.675l.66 6.6a.25.25 0 0 0 .249.225h5.19a.25.25 0 0 0 .249-.225l.66-6.6a.75.75 0 0 1 1.492.149l-.66 6.6A1.748 1.748 0 0 1 10.595 15h-5.19a1.75 1.75 0 0 1-1.741-1.575l-.66-6.6a.75.75 0 1 1 1.492-.15ZM6.5 1.75V3h3V1.75a.25.25 0 0 0-.25-.25h-2.5a.25.25 0 0 0-.25.25Z"/></svg>
+                Clear
+            </button>
+            <div class="dropdown">
+                <button class="toolbar-btn" id="export-btn" title="Export">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M2.75 14A1.75 1.75 0 0 1 1 12.25v-2.5a.75.75 0 0 1 1.5 0v2.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25v-2.5a.75.75 0 0 1 1.5 0v2.5A1.75 1.75 0 0 1 13.25 14Z"/><path d="M7.25 7.689V2a.75.75 0 0 1 1.5 0v5.689l1.97-1.969a.749.749 0 1 1 1.06 1.06l-3.25 3.25a.749.749 0 0 1-1.06 0L4.22 6.78a.749.749 0 1 1 1.06-1.06l1.97 1.969Z"/></svg>
+                    Export
+                    <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="m4.427 7.427 3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.396 7H4.604a.25.25 0 0 0-.177.427Z"/></svg>
+                </button>
+                <div class="dropdown-menu" id="export-menu">
+                    <div class="dropdown-label">Copy to Clipboard</div>
+                    <button class="dropdown-item" id="copy-md">📋 Markdown</button>
+                    <button class="dropdown-item" id="copy-html">📋 HTML</button>
+                    <div class="dropdown-divider"></div>
+                    <div class="dropdown-label">Download as File</div>
+                    <button class="dropdown-item" id="download-md">💾 Markdown (.md)</button>
+                    <button class="dropdown-item" id="download-html">💾 HTML (.html)</button>
+                </div>
+            </div>
+        </div>
+        <div class="toolbar-group">
+            <button class="toolbar-btn" id="settings-btn" title="Parser settings">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0a8.2 8.2 0 0 1 .701.031C8.856.065 9.011.1 9.266.17a1.75 1.75 0 0 1 1.227 1.307l.218 1.089a.75.75 0 0 0 .84.558l1.094-.188a1.75 1.75 0 0 1 1.727.766 8.078 8.078 0 0 1 1.032 1.776 1.75 1.75 0 0 1-.5 1.922l-.876.901a.75.75 0 0 0 0 1.046l.876.901a1.75 1.75 0 0 1 .5 1.922 8.079 8.079 0 0 1-1.032 1.776 1.75 1.75 0 0 1-1.727.766l-1.094-.188a.75.75 0 0 0-.84.558l-.218 1.089a1.75 1.75 0 0 1-1.227 1.307c-.255.07-.41.105-.565.139A8.2 8.2 0 0 1 8 16a8.2 8.2 0 0 1-.701-.031c-.155-.034-.31-.069-.565-.139a1.75 1.75 0 0 1-1.227-1.307l-.218-1.089a.75.75 0 0 0-.84-.558l-1.094.188a1.75 1.75 0 0 1-1.727-.766A8.078 8.078 0 0 1 .596 10.522a1.75 1.75 0 0 1 .5-1.922l.876-.901a.75.75 0 0 0 0-1.046l-.876-.901a1.75 1.75 0 0 1-.5-1.922A8.078 8.078 0 0 1 1.628 2.05a1.75 1.75 0 0 1 1.727-.766l1.094.188a.75.75 0 0 0 .84-.558l.218-1.089A1.75 1.75 0 0 1 6.734.17c.255-.07.41-.105.565-.139A8.2 8.2 0 0 1 8 0ZM8 5a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg>
+                Settings
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="currentColor"><path d="m4.427 7.427 3.396 3.396a.25.25 0 0 0 .354 0l3.396-3.396A.25.25 0 0 0 11.396 7H4.604a.25.25 0 0 0-.177.427Z"/></svg>
+            </button>
+            <div class="dropdown-menu settings-menu" id="settings-menu">
+                <label class="setting-item"><input type="checkbox" id="opt-table" checked> Tables</label>
+                <label class="setting-item"><input type="checkbox" id="opt-tasklist" checked> Task lists</label>
+                <label class="setting-item"><input type="checkbox" id="opt-strikethrough" checked> Strikethrough</label>
+                <label class="setting-item"><input type="checkbox" id="opt-autolink" checked> Autolinks</label>
+            </div>
+        </div>
+    </div>
     <main>
         <div class="pane editor-pane">
             <div class="pane-header">Markdown</div>

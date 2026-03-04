@@ -4,16 +4,32 @@
     box-sizing: border-box;
 }
 
-:root {
+/* GitHub Dark */
+:root, [data-theme="dark"] {
     --header-height: 48px;
     --footer-height: 32px;
     --pane-header-height: 32px;
-    --bg: #1e1e2e;
-    --surface: #282840;
-    --border: #3b3b5c;
-    --text: #cdd6f4;
-    --text-muted: #888ea8;
-    --accent: #f38ba8;
+    --toolbar-height: 40px;
+    --bg: #0d1117;
+    --surface: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-muted: #7d8590;
+    --accent: #58a6ff;
+    --code-bg: #161b22;
+    --blockquote-border: #3b434b;
+}
+
+/* GitHub Light */
+[data-theme="light"] {
+    --bg: #ffffff;
+    --surface: #f6f8fa;
+    --border: #d0d7de;
+    --text: #1f2328;
+    --text-muted: #656d76;
+    --accent: #0969da;
+    --code-bg: #f6f8fa;
+    --blockquote-border: #d0d7de;
 }
 
 html, body {
@@ -41,11 +57,31 @@ header h1 {
 header .subtitle {
     font-size: 13px;
     color: var(--text-muted);
+    flex: 1;
+}
+
+#theme-toggle {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition: background 0.15s;
+}
+
+#theme-toggle:hover {
+    background: var(--border);
 }
 
 main {
     display: flex;
-    height: calc(100% - var(--header-height) - var(--footer-height));
+    height: calc(100% - var(--header-height) - var(--toolbar-height) - var(--footer-height));
 }
 
 footer {
@@ -67,6 +103,129 @@ footer a {
 
 footer a:hover {
     color: var(--accent);
+}
+
+/* Toolbar */
+.toolbar {
+    height: var(--toolbar-height);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    gap: 8px;
+}
+
+.toolbar-group {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    position: relative;
+}
+
+.toolbar-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    height: 28px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    cursor: pointer;
+    white-space: nowrap;
+    font-family: inherit;
+    transition: background 0.15s;
+}
+
+.toolbar-btn:hover {
+    background: var(--border);
+}
+
+/* Dropdowns */
+.dropdown {
+    position: relative;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    min-width: 160px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 4px 0;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    z-index: 100;
+}
+
+.dropdown-menu.open {
+    display: block;
+}
+
+.settings-menu {
+    left: auto;
+    right: 0;
+}
+
+.dropdown-item {
+    display: block;
+    width: 100%;
+    padding: 6px 12px;
+    font-size: 13px;
+    color: var(--text);
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.dropdown-item:hover {
+    background: var(--border);
+}
+
+.dropdown-label {
+    padding: 6px 12px 2px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.dropdown-divider {
+    height: 1px;
+    margin: 4px 0;
+    background: var(--border);
+}
+
+.toolbar-btn .toast-check {
+    color: #2da44e;
+}
+
+.setting-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    font-size: 13px;
+    color: var(--text);
+    cursor: pointer;
+}
+
+.setting-item:hover {
+    background: var(--border);
+}
+
+.setting-item input[type="checkbox"] {
+    accent-color: var(--accent);
 }
 
 .pane {
@@ -147,7 +306,7 @@ footer a:hover {
 }
 
 #preview blockquote {
-    border-left: 3px solid var(--accent);
+    border-left: 3px solid var(--blockquote-border);
     padding-left: 12px;
     color: var(--text-muted);
     margin-bottom: 1em;
