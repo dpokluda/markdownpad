@@ -1,10 +1,3 @@
-import init, { parse_markdown } from "./rustdown.js";
-import { EditorView, lineNumbers, highlightActiveLine, highlightActiveLineGutter } from "@codemirror/view";
-import { EditorState } from "@codemirror/state";
-import { markdown } from "@codemirror/lang-markdown";
-import { defaultHighlightStyle, syntaxHighlighting } from "@codemirror/language";
-import { oneDark } from "@codemirror/theme-one-dark";
-
 const SAMPLE_MARKDOWN = `# Welcome to MarkdownPad 🦀
 
 A **live Markdown playground** powered by Rust and WebAssembly.
@@ -37,7 +30,7 @@ fn main() {
 - [x] Set up Rust + WASM
 - [x] Build the playground
 - [x] Add CodeMirror
-- [ ] Add Monaco
+- [x] Add Monaco
 
 > "The best way to learn is to build something." — Someone wise
 
@@ -46,7 +39,12 @@ fn main() {
 *Rendered with [comrak](https://github.com/kivikakk/comrak) compiled to WebAssembly.*
 `;
 
-async function main() {
+require.config({
+    paths: { vs: "https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs" },
+});
+
+require(["vs/editor/editor.main"], async function () {
+    const { default: init, parse_markdown } = await import("./rustdown.js");
     await init();
 
     const preview = document.getElementById("preview");
@@ -55,27 +53,24 @@ async function main() {
         preview.innerHTML = parse_markdown(content);
     }
 
-    const editor = new EditorView({
-        doc: SAMPLE_MARKDOWN,
-        extensions: [
-            lineNumbers(),
-            highlightActiveLine(),
-            highlightActiveLineGutter(),
-            markdown(),
-            syntaxHighlighting(defaultHighlightStyle),
-            oneDark,
-            EditorView.lineWrapping,
-            EditorView.updateListener.of((update) => {
-                if (update.docChanged) {
-                    updatePreview(update.state.doc.toString());
-                }
-            }),
-        ],
-        parent: document.getElementById("editor"),
+    const editor = monaco.editor.create(document.getElementById("editor"), {
+        value: SAMPLE_MARKDOWN,
+        language: "markdown",
+        theme: "vs-dark",
+        automaticLayout: true,
+        minimap: { enabled: false },
+        wordWrap: "on",
+        lineNumbers: "on",
+        fontSize: 14,
+        fontFamily: '"Cascadia Code", "Fira Code", "Consolas", monospace',
+        scrollBeyondLastLine: false,
+        padding: { top: 8 },
+    });
+
+    editor.onDidChangeModelContent(() => {
+        updatePreview(editor.getValue());
     });
 
     // Initial render
     updatePreview(SAMPLE_MARKDOWN);
-}
-
-main();
+});

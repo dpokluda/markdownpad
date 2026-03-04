@@ -99,17 +99,6 @@ footer a:hover {
     overflow: hidden;
 }
 
-#editor .cm-editor {
-    height: 100%;
-    background: var(--bg);
-}
-
-#editor .cm-scroller {
-    font-family: "Cascadia Code", "Fira Code", "Consolas", monospace;
-    font-size: 14px;
-    line-height: 1.6;
-}
-
 #preview {
     flex: 1;
     padding: 16px;

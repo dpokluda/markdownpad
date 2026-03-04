@@ -5,18 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MarkdownPad — Live Markdown Playground</title>
     <link rel="stylesheet" href="style.css">
-    <script type="importmap">
-    {
-        "imports": {
-            "codemirror": "https://esm.sh/codemirror@6.0.1",
-            "@codemirror/lang-markdown": "https://esm.sh/@codemirror/lang-markdown@6.3.2",
-            "@codemirror/language": "https://esm.sh/@codemirror/language@6.11.0",
-            "@codemirror/state": "https://esm.sh/@codemirror/state@6.5.2",
-            "@codemirror/view": "https://esm.sh/@codemirror/view@6.36.5",
-            "@codemirror/theme-one-dark": "https://esm.sh/@codemirror/theme-one-dark@6.1.2"
-        }
-    }
-    </script>
 </head>
 <body>
     <header>
@@ -37,6 +25,7 @@
         <span>Built by <a href="https://github.com/dpokluda" target="_blank">David Pokluda</a></span>
         <a href="https://github.com/dpokluda/markdownpad" target="_blank">View on GitHub</a>
     </footer>
-    <script type="module" src="app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.52.2/min/vs/loader.js"></script>
+    <script src="app.js"></script>
 </body>
 </html>
