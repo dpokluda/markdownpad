@@ -1,4 +1,4 @@
-# 🦀 rustdown
+# 🦀 MarkdownPad
 
 A browser-based Markdown playground powered by Rust and WebAssembly.
 
@@ -75,23 +75,57 @@ Nice-to-have features to improve the playground.
 - Responsive design for mobile/tablet
 - Export rendered HTML or copy to clipboard
 
+## Project Structure
+
+```
+markdownpad/
+├── rustdown/          ← Rust WASM library
+│   ├── Cargo.toml
+│   └── src/lib.rs
+├── docs/              ← Static website (served by GitHub Pages)
+│   ├── index.html
+│   ├── style.css
+│   ├── app.js
+│   ├── rustdown.js    ← WASM JS glue (build artifact)
+│   └── rustdown_bg.wasm
+├── README.md
+├── LICENSE
+└── .gitignore
+```
+
 ## Development
 
 ### Prerequisites
 
 - [Rust](https://rustup.rs/) (stable)
 - [wasm-pack](https://rustwasm.github.io/wasm-pack/installer/)
+- Python 3 (for local server)
 - A modern web browser
 
-### Build
+### Build & Run
 
 ```bash
 # Build the WASM package
+cd rustdown
 wasm-pack build --target web
 
-# Serve locally (use any static file server)
-python -m http.server 8080
+# Copy WASM artifacts to the website
+cp pkg/rustdown_bg.wasm ../docs/
+cp pkg/rustdown.js ../docs/
+
+# Run locally
+cd ../docs
+.\run-local.ps1
 ```
+
+### GitHub Pages Deployment
+
+The site is served from the `docs/` folder on the `main` branch.
+
+1. Go to **Settings → Pages** in the GitHub repository
+2. Under **Source**, select **Deploy from a branch**
+3. Set branch to `main` and folder to `/docs`
+4. Save — the site will be live at `https://dpokluda.github.io/markdownpad/`
 
 ## License
 
