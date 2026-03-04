@@ -1,4 +1,9 @@
 import init, { parse_markdown } from "./rustdown.js";
+import { EditorView, lineNumbers, highlightActiveLine, highlightActiveLineGutter } from "@codemirror/view";
+import { EditorState } from "@codemirror/state";
+import { markdown } from "@codemirror/lang-markdown";
+import { defaultHighlightStyle, syntaxHighlighting } from "@codemirror/language";
+import { oneDark } from "@codemirror/theme-one-dark";
 
 const SAMPLE_MARKDOWN = `# Welcome to MarkdownPad 🦀
 
@@ -31,7 +36,7 @@ fn main() {
 
 - [x] Set up Rust + WASM
 - [x] Build the playground
-- [ ] Add CodeMirror
+- [x] Add CodeMirror
 - [ ] Add Monaco
 
 > "The best way to learn is to build something." — Someone wise
@@ -44,18 +49,33 @@ fn main() {
 async function main() {
     await init();
 
-    const editor = document.getElementById("editor");
     const preview = document.getElementById("preview");
 
-    function updatePreview() {
-        preview.innerHTML = parse_markdown(editor.value);
+    function updatePreview(content) {
+        preview.innerHTML = parse_markdown(content);
     }
 
-    editor.addEventListener("input", updatePreview);
+    const editor = new EditorView({
+        doc: SAMPLE_MARKDOWN,
+        extensions: [
+            lineNumbers(),
+            highlightActiveLine(),
+            highlightActiveLineGutter(),
+            markdown(),
+            syntaxHighlighting(defaultHighlightStyle),
+            oneDark,
+            EditorView.lineWrapping,
+            EditorView.updateListener.of((update) => {
+                if (update.docChanged) {
+                    updatePreview(update.state.doc.toString());
+                }
+            }),
+        ],
+        parent: document.getElementById("editor"),
+    });
 
-    // Load sample content
-    editor.value = SAMPLE_MARKDOWN;
-    updatePreview();
+    // Initial render
+    updatePreview(SAMPLE_MARKDOWN);
 }
 
 main();
