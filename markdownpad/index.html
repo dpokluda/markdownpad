@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarkdownPad — Live Markdown Playground</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>🦀 MarkdownPad</h1>
+        <span class="subtitle">Markdown → HTML, powered by Rust + WebAssembly</span>
+    </header>
+    <main>
+        <div class="pane editor-pane">
+            <div class="pane-header">Markdown</div>
+            <textarea id="editor" spellcheck="false" placeholder="Type your Markdown here..."></textarea>
+        </div>
+        <div class="pane preview-pane">
+            <div class="pane-header">Preview</div>
+            <div id="preview"></div>
+        </div>
+    </main>
+    <footer>
+        <span>Built by <a href="https://github.com/dpokluda" target="_blank">David Pokluda</a></span>
+        <a href="https://github.com/dpokluda/markdownpad" target="_blank">View on GitHub</a>
+    </footer>
+    <script type="module" src="app.js"></script>
+</body>
+</html>
