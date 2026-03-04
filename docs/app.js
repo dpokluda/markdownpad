@@ -45,7 +45,7 @@ require.config({
 
 require(["vs/editor/editor.main"], async function () {
     const { default: init, parse_markdown } = await import("./rustdown.js");
-    await init();
+    await init("./rustdown_bg.wasm");
 
     const preview = document.getElementById("preview");
 
