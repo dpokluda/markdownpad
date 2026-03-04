@@ -1,0 +1,45 @@
+# =========================
+# Rust
+# =========================
+/target/
+**/*.rs.bk
+Cargo.lock
+
+# =========================
+# WebAssembly (wasm-pack)
+# =========================
+/pkg/
+/wasm-pack.log
+
+# =========================
+# Node.js / Web tooling
+# =========================
+node_modules/
+dist/
+package-lock.json
+yarn.lock
+.env
+.env.*
+
+# =========================
+# JetBrains IDEs (RustRover, WebStorm)
+# =========================
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+cmake-build-*/
+
+# =========================
+# VS Code
+# =========================
+.vscode/
+*.code-workspace
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+Desktop.ini
