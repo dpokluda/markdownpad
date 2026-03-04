@@ -45,7 +45,7 @@ require.config({
 
 // Theme management
 function getStoredTheme() {
-    return localStorage.getItem("markdownpad-theme") || "dark";
+    return localStorage.getItem("markdownpad-theme") || "light";
 }
 
 function applyTheme(theme) {
